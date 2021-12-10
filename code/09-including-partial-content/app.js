@@ -3,6 +3,8 @@ const path = require('path');
 
 const express = require('express');
 
+const uuid = require('uuid');
+
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -14,6 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/', function (req, res) {
   res.render('index');
 });
+
+
+
 
 app.get('/restaurants', function (req, res) {
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
@@ -27,12 +32,29 @@ app.get('/restaurants', function (req, res) {
   });
 });
 
+
+app.get('/restaurants/:id', function (req, res) { 
+
+ const restaurantId = req.params.id;
+
+ console.log(restaurantId);
+
+ res.render('restaurant-detail', { rid: restaurantId });
+
+})
+
+
 app.get('/recommend', function (req, res) {
   res.render('recommend');
 });
 
 app.post('/recommend', function (req, res) {
   const restaurant = req.body;
+
+  restaurant.id = uuid.v4();
+
+  console.log(restaurant)
+
   const filePath = path.join(__dirname, 'data', 'restaurants.json');
 
   const fileData = fs.readFileSync(filePath);
