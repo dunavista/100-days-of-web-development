@@ -8,7 +8,11 @@
     <%- include('includes/header') %>
     <%- include('includes/side-drawer') %>
     <main>
-      <h1>Title of rest: <%= rid %> </h1>
+      <h1><%= restaurant.name %></h1>
+      <p><%= restaurant.cuisine %></p>
+      <p><%= restaurant.address %></p>
+      <p><%= restaurant.description %> </p>
+      <p><a href="<%= restaurant.website %>">View Website</a></p>
       
     </main>
   </body>

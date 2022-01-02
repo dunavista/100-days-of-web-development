@@ -37,9 +37,21 @@ app.get('/restaurants/:id', function (req, res) {
 
  const restaurantId = req.params.id;
 
+ const filePath = path.join(__dirname, 'data', 'restaurants.json');
+
+  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = JSON.parse(fileData);
+
+  for (const restaurant of storedRestaurants) {
+    if (restaurant.id === restaurantId) {
+      return res.render('restaurant-detail', { restaurant: restaurant }); //return stop the function execution
+    }
+  }
+
  console.log(restaurantId);
 
- res.render('restaurant-detail', { rid: restaurantId });
+ res.render('404')
+ 
 
 })
 
